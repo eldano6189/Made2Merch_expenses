@@ -1,0 +1,19 @@
+.container {
+  background-color: var(--fc-1);
+}
+
+.container ul {
+  display: flex;
+  border-top: 1px solid var(--clr-3);
+}
+
+.tab {
+  flex: 1 1;
+  aspect-ratio: 1 / 1;
+  display: grid;
+  place-items: center;
+}
+
+.tab svg {
+  transform: scale(0.75);
+}

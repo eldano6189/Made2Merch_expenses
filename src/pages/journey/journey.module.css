@@ -1,0 +1,26 @@
+.section {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 4vw;
+}
+
+.section > p {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+
+.container__input > input {
+  padding: 1em;
+  border: 1px solid var(--fc-1);
+  margin: 0.5em 0;
+  width: 100%;
+  outline: none;
+  background-color: var(--fc-2);
+}
+
+.container__input > p {
+  display: inline-block;
+  transform: translateY(100%);
+  background-color: var(--fc-2);
+  font-size: 0.8rem;
+}
