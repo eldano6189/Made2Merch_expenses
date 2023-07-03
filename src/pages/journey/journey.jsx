@@ -1,5 +1,6 @@
 import { useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 import styles from "./journey.module.css";
 import ContextProvider from "../../context/context";
 
@@ -15,13 +16,7 @@ const Journey = () => {
     fuelCost: "",
     fuelLitres: "",
   };
-  const {
-    setTotalJourneys,
-    setTotalFuelCost,
-    setTotalMileage,
-    setCurrentJourney,
-    setAllJourneys,
-  } = useContext(ContextProvider);
+  const { setAppData, appData } = useContext(ContextProvider);
   const [newJourney, setNewJourney] = useState(initialJourneyTemplate);
 
   const navigate = useNavigate();
@@ -32,21 +27,29 @@ const Journey = () => {
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    setTotalJourneys((prevState) => prevState + 1);
-    setTotalFuelCost((prevState) => prevState + Number(newJourney.fuelCost));
-    setTotalMileage(
-      (prevState) =>
-        prevState +
-        (Number(newJourney.finalMileage) - Number(newJourney.startMileage))
-    );
-    setCurrentJourney(newJourney);
-    setAllJourneys((prevState) => [...prevState, newJourney]);
+
+    setAppData({
+      user: appData.user,
+      totalJourneys: appData.totalJourneys + 1,
+      totalFuelCost: appData.totalFuelCost + Number(newJourney.fuelCost),
+      totalMileage:
+        appData.totalMileage +
+        (Number(newJourney.finalMileage) - Number(newJourney.startMileage)),
+      allJourneys: [...appData.allJourneys, newJourney],
+    });
+
     setNewJourney(initialJourneyTemplate);
     navigate("/reports");
   };
 
   return (
-    <div className={styles.container}>
+    <motion.div
+      className={styles.container}
+      initial={{ transform: "translateY(1rem)", opacity: 0 }}
+      animate={{ transform: "translateY(0)", opacity: 1 }}
+      exit={{ opacity: "0" }}
+      transition={{ duration: 0.3 }}
+    >
       <form onSubmit={(e) => onSubmitHandler(e)}>
         <div className={styles.section}>
           <p>Start of journey.</p>
@@ -125,8 +128,9 @@ const Journey = () => {
             />
           </div>
           <div className={styles.container__input}>
-            <p>Fuel Cost (If fuel purchased)</p>
+            <p>Fuel Cost* (If fuel purchased)</p>
             <input
+              required
               name="fuelCost"
               type="number"
               value={newJourney?.fuelCost}
@@ -134,8 +138,9 @@ const Journey = () => {
             />
           </div>
           <div className={styles.container__input}>
-            <p>Fuel Litres (If fuel purchased)</p>
+            <p>Fuel Litres* (If fuel purchased)</p>
             <input
+              required
               name="fuelLitres"
               type="number"
               value={newJourney?.fuelLitres}
@@ -147,7 +152,7 @@ const Journey = () => {
           </div>
         </div>
       </form>
-    </div>
+    </motion.div>
   );
 };
 

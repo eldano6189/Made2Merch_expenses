@@ -1,42 +1,31 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
 
 const ContextProvider = createContext();
 
 export const ContextWrapper = ({ children }) => {
-  const [user, setUser] = useState({
-    firstName: "Daniel",
-    lastName: "Hall",
-    picture: "",
+  const [appData, setAppData] = useState(() => {
+    const saved = localStorage.getItem("m2mData");
+    const initialValue = JSON.parse(saved);
+    return (
+      initialValue || {
+        user: { firstName: "Not", lastName: "Known", picture: "" },
+        totalJourneys: 0,
+        totalFuelCost: 0,
+        totalMileage: 0,
+        allJourneys: [],
+      }
+    );
   });
-  const [totalJourneys, setTotalJourneys] = useState(0);
-  const [totalFuelCost, setTotalFuelCost] = useState(0);
-  const [totalMileage, setTotalMileage] = useState(0);
-  const [currentJourney, setCurrentJourney] = useState({});
-  const [allJourneys, setAllJourneys] = useState([]);
 
-  console.log([
-    totalJourneys,
-    totalFuelCost,
-    totalMileage,
-    currentJourney,
-    allJourneys,
-  ]);
+  useEffect(() => {
+    localStorage.setItem("m2mData", JSON.stringify(appData));
+  }, [appData]);
 
   return (
     <ContextProvider.Provider
       value={{
-        user,
-        setUser,
-        totalJourneys,
-        setTotalJourneys,
-        totalFuelCost,
-        setTotalFuelCost,
-        totalMileage,
-        setTotalMileage,
-        currentJourney,
-        setCurrentJourney,
-        allJourneys,
-        setAllJourneys,
+        appData,
+        setAppData,
       }}
     >
       {children}

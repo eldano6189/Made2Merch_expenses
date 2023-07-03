@@ -1,5 +1,6 @@
 import styles from "./settings.module.css";
-import { useContext, useState } from "react";
+import { motion } from "framer-motion";
+import { useContext, useState, useEffect } from "react";
 import ContextProvider from "../../context/context";
 
 const Settings = () => {
@@ -8,25 +9,57 @@ const Settings = () => {
     lastName: "",
     picture: "",
   };
-  const { setUser } = useContext(ContextProvider);
+  const { appData, setAppData } = useContext(ContextProvider);
   const [changeUserDetails, setChangeUserDetails] = useState(userTemplate);
+  const [file, setFile] = useState(null);
 
   const handleProfilePicture = (e) => {
-    console.log(e.target.files);
-    setChangeUserDetails({
-      ...changeUserDetails,
-      picture: URL.createObjectURL(e.target.files[0]),
-    });
+    const file = e.target.files[0];
+    setFile(file);
   };
+
+  useEffect(() => {
+    let fileReader,
+      isCancel = false;
+    if (file) {
+      fileReader = new FileReader();
+      fileReader.onload = (e) => {
+        const { result } = e.target;
+        if (result && !isCancel) {
+          setChangeUserDetails({
+            ...changeUserDetails,
+            picture: result,
+          });
+          setChangeUserDetails({
+            ...changeUserDetails,
+            picture: result,
+          });
+        }
+      };
+      fileReader.readAsDataURL(file);
+    }
+    return () => {
+      isCancel = true;
+      if (fileReader && fileReader.readyState === 1) {
+        fileReader.abort();
+      }
+    };
+  }, [file, changeUserDetails]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
-    setUser(changeUserDetails);
+    setAppData({ ...appData, user: changeUserDetails });
     setChangeUserDetails(userTemplate);
   };
 
   return (
-    <div className={styles.container}>
+    <motion.div
+      className={styles.container}
+      initial={{ transform: "translateY(1rem)", opacity: 0 }}
+      animate={{ transform: "translateY(0)", opacity: 1 }}
+      exit={{ opacity: "0" }}
+      transition={{ duration: 0.3 }}
+    >
       <div className={styles.section}>
         <p>Profile settings.</p>
         <form onSubmit={(e) => onSubmitHandler(e)}>
@@ -83,7 +116,7 @@ const Settings = () => {
         <button className="button">Clear Total Fuel Cost.</button>
         <button className="button">Clear All Journeys. </button>
       </div> */}
-    </div>
+    </motion.div>
   );
 };
 

@@ -53,4 +53,5 @@ a {
   color: var(--fc-2);
   font-weight: bold;
   margin: 0.5em 0;
+  font-size: 0.8rem;
 }

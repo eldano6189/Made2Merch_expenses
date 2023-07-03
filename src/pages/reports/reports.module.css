@@ -14,58 +14,79 @@
 }
 
 .summary {
-  border: 1px solid var(--fc-1);
-  margin: 0.25em 0;
-  display: grid;
-  grid-template-columns: auto 1fr;
-  grid-template-rows: 1fr 1fr;
+  border: 1px solid var(--clr-3);
+  margin: 0.5em 0;
+  height: 8rem;
+  display: flex;
 }
 
-.distance {
-  display: grid;
-  place-items: center;
-  grid-column: 1 / 2;
-  grid-row: 1 / 3;
-  padding: 1em;
-  background: linear-gradient(125deg, var(--clr-1), var(--clr-2));
+.container__date {
+  display: flex;
+  flex-direction: column;
+  border-right: 2px solid var(--clr-3);
+  border-left: 5px solid var(--clr-1);
 }
 
-.distance > p:nth-of-type(1) {
+.mileage,
+.date {
+  flex: 1 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  flex-direction: column;
+  padding: 0.5em;
+}
+
+.mileage > p:nth-of-type(1),
+.date > p:nth-of-type(1),
+.date > p:nth-of-type(2) {
+  font-size: 0.8rem;
+}
+
+.mileage > p:nth-of-type(1),
+.date > p:nth-of-type(1) {
+  opacity: 0.5;
+}
+
+.mileage > p:nth-of-type(2) {
   font-weight: bold;
   font-size: 2rem;
 }
 
-.distance > p:nth-of-type(2) {
-  font-size: 0.75rem;
+.container__overview {
+  flex: 1 1;
 }
 
-.date {
-  grid-column: 2 / 3;
-  grid-row: 1 / 2;
-  padding-left: 0.5em;
-  background-color: var(--clr-3);
+.container__location {
+  height: 50%;
   display: flex;
-  align-items: center;
+  border-bottom: 2px solid var(--clr-3);
 }
 
-.date > p {
-  font-weight: bold;
-}
-
-.reason {
-  grid-column: 2 / 3;
-  grid-row: 2 / 3;
-  padding-left: 0.5em;
-  background-color: var(--fc-1);
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-}
-
-.reason > p {
+.svg {
+  width: 2rem;
   padding: 0.5em;
-  color: var(--fc-2);
-  text-overflow: ellipsis;
-  white-space: nowrap;
+}
+
+.svg > svg {
+  height: 100%;
+}
+
+.locations {
+  flex: 1 1;
+  padding: 0.5em;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.container__reason {
+  padding: 0.5em;
+}
+
+.container__reason > p {
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
   overflow: hidden;
 }

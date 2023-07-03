@@ -1,0 +1,37 @@
+.logo {
+  transform: scale(0);
+  animation: logoAnim 1s linear forwards;
+  transform-origin: center;
+}
+
+.text {
+  opacity: 0;
+  animation: textAnim 1.5s ease 1s forwards;
+}
+
+@keyframes logoAnim {
+  0% {
+    transform: scale(0) rotate(0turn);
+  }
+  25% {
+    transform: scale(0) rotate(0.5turn);
+  }
+  50% {
+    transform: scale(0.5) rotate(1turn);
+  }
+  70% {
+    transform: scale(0.2) rotate(1.5turn);
+  }
+  100% {
+    transform: scale(1) rotate(2turn);
+  }
+}
+
+@keyframes textAnim {
+  0% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 1;
+  }
+}

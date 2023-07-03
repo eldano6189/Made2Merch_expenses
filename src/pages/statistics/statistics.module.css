@@ -1,0 +1,30 @@
+.container {
+  padding: 2rem 4vw;
+}
+
+.statistics {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5em;
+  padding: 1em 0;
+}
+
+.item {
+  aspect-ratio: 1 / 1;
+  border: 2px solid var(--clr-3);
+  border-left: 4px solid var(--clr-1);
+  padding: 1em;
+  overflow: hidden;
+}
+
+.item > p:nth-of-type(1) {
+  font-size: 1rem;
+  color: var(--fc-1);
+}
+
+.item > p:nth-of-type(2) {
+  font-size: 1.25rem;
+  font-weight: bold;
+  color: var(--fc-1);
+  width: 5ch;
+}

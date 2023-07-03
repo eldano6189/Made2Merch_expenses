@@ -1,0 +1,50 @@
+.container {
+  background-color: var(--fc-2);
+  padding: 0 4vw;
+}
+
+.header {
+  height: 4rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.item {
+  margin: 0.25em 0;
+  border: 2px solid var(--clr-3);
+  border-left: 5px solid var(--clr-1);
+  padding: 1em;
+}
+
+.item > p {
+  color: var(--fc-1);
+}
+
+.item > p:nth-of-type(1) {
+  opacity: 0.75;
+  font-size: 0.8rem;
+}
+
+.item > p:nth-of-type(2) {
+  font-size: 1.2rem;
+}
+
+.footer {
+  height: 4rem;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.table {
+  display: none;
+}
+
+thead > tr:nth-of-type(1) > td {
+  color: rgb(188, 188, 188);
+}
+
+tbody tr td {
+  color: rgb(48, 48, 48);
+}

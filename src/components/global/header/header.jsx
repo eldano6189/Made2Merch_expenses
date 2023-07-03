@@ -4,7 +4,7 @@ import ContextProvider from "../../../context/context";
 import Logo from "../../../assets/svgs/logo";
 
 const Header = () => {
-  const { user } = useContext(ContextProvider);
+  const { appData } = useContext(ContextProvider);
 
   return (
     <div className={styles.container}>
@@ -13,11 +13,18 @@ const Header = () => {
       </div>
       <div className={styles.profile}>
         <div className={styles.profile__picture}>
-          <img src={user?.picture} alt={user.lastName} />
+          {appData.user.picture ? (
+            <img src={appData.user.picture} alt={appData.user.lastName} />
+          ) : (
+            <img
+              src={require("../../../assets/images/user.webp")}
+              alt={appData.user.lastName}
+            />
+          )}
         </div>
         <div className={styles.profile__name}>
-          <p>{user.firstName.charAt(0)}</p>
-          <p>{user.lastName.charAt(0)}</p>
+          <p>{appData.user.firstName.charAt(0)}</p>
+          <p>{appData.user.lastName.charAt(0)}</p>
         </div>
       </div>
     </div>
