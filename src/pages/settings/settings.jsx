@@ -12,10 +12,26 @@ const Settings = () => {
   const { appData, setAppData } = useContext(ContextProvider);
   const [changeUserDetails, setChangeUserDetails] = useState(userTemplate);
   const [file, setFile] = useState(null);
+  const [modalOpen, setModalOpen] = useState(false);
 
   const handleProfilePicture = (e) => {
     const file = e.target.files[0];
     setFile(file);
+  };
+
+  const handleYes = () => {
+    setAppData({
+      ...appData,
+      allJourneys: [],
+      totalMileage: 0,
+      totalFuelCost: 0,
+      totalJourneys: 0,
+    });
+    setModalOpen(false);
+  };
+
+  const handleNo = () => {
+    setModalOpen(false);
   };
 
   useEffect(() => {
@@ -105,17 +121,28 @@ const Settings = () => {
         </form>
       </div>
 
-      {/* <div className={styles.section}>
+      <div className={styles.section}>
         <p>
           Any changes made past this point <b>CAN NOT</b> be reversed! Proceed
           with caution.
         </p>
-
-        <button className="button">Clear Total Mileage. </button>
-        <button className="button">Clear Total Journeys. </button>
-        <button className="button">Clear Total Fuel Cost.</button>
-        <button className="button">Clear All Journeys. </button>
-      </div> */}
+        <button className="button" onClick={() => setModalOpen(true)}>
+          Clear All Data.{" "}
+        </button>
+      </div>
+      {modalOpen && (
+        <div className={styles.section}>
+          <p>Are you sure?.</p>
+          <div>
+            <button className="button" onClick={handleYes}>
+              Yes
+            </button>
+            <button className="button" onClick={handleNo}>
+              No
+            </button>
+          </div>
+        </div>
+      )}
     </motion.div>
   );
 };

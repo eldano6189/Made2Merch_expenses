@@ -1,4 +1,4 @@
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 import styles from "./journey.module.css";
@@ -17,13 +17,21 @@ const Journey = () => {
     fuelLitres: "",
   };
   const { setAppData, appData } = useContext(ContextProvider);
-  const [newJourney, setNewJourney] = useState(initialJourneyTemplate);
+  const [newJourney, setNewJourney] = useState(() => {
+    const saved = localStorage.getItem("current-journey");
+    const initialValue = JSON.parse(saved);
+    return initialValue || initialJourneyTemplate;
+  });
 
   const navigate = useNavigate();
 
   const onChangeHandler = (e) => {
     setNewJourney({ ...newJourney, [e.target.name]: e.target.value });
   };
+
+  useEffect(() => {
+    localStorage.setItem("current-journey", JSON.stringify(newJourney));
+  }, [newJourney]);
 
   const onSubmitHandler = (e) => {
     e.preventDefault();
